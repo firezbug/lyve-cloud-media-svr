@@ -9,8 +9,8 @@ Creating a low tier YouTube in 5 days🤡
 
 ### 🔧 Built With
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [NodeJS](https://nodejs.org/en/)
-* [React](https://reactjs.org/)
+* [Node.js](https://nodejs.org/en/)
+* [React.js](https://reactjs.org/)
 * [Amazon SDK](https://aws.amazon.com/sdk-for-javascript/)
 
 ## 📖 Getting Started 
