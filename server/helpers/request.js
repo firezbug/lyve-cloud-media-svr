@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require('axios');
 const apiCall = (meta, baseUrl, data) => {
   return new Promise(function (resolve, reject) {
     // Some imaginary 2000 ms timeout simulating a db call

@@ -1,5 +1,7 @@
 const express = require('express');
 const videoRoutes = require('./server/video/video.routes');
+const logsRoutes = require('./server/logs/logs.routes');
+
 const router = express.Router(); // eslint-disable-line new-cap
 
 /** GET /health-check - Check service health */
@@ -21,4 +23,5 @@ router.get('/health-check', (req, res) => res.send('OK'));
 
 // mount user routes at /users
 router.use('/videos', videoRoutes);
+router.use('/logs', logsRoutes);
 module.exports = router;

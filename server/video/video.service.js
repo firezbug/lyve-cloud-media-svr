@@ -1,21 +1,12 @@
 const configs = require('../../config/config');
-const { S3 } = require('aws-sdk');
-const s3 = new S3({
-  endpoint: configs.endpoint_url, // Put you region
-  accessKeyId: configs.access_key, // Put you accessKeyId
-  secretAccessKey: configs.secret_key, // Put you accessKeyId
-  Bucket: configs.video_bucket, // Put your bucket name
-  signatureVersion: 'v4',
-  region: configs.region, // Put you region
-  //   apiVersion: '2006-03-01'
-});
+const { s3 } = require('../helpers/aws.s3.instance');
+
 async function getVideos() {
   return new Promise(async (resolve, reject) => {
     try {
       const bucketParams = { Bucket: configs.video_bucket };
       s3.listObjects(bucketParams, async function (err, data) {
         if (err) {
-          console.log('Error', err);
           reject(err);
         } else {
           resolve(data.Contents);
@@ -33,7 +24,6 @@ async function getVideo({ key, res, range }) {
       s3.headObject(bucketParams, async function (err, data) {
         if (err) {
           reject(err);
-          console.log('Error', err);
         } else {
           //   console.log('Success', data);
           if (!range) {
