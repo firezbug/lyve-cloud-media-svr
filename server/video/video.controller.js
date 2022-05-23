@@ -12,7 +12,7 @@ async function getVideos(req, res) {
     Response.success(res, 'Successfully fetched the videos', videos);
     // next();
   } catch (errRes) {
-    logService.saveLog({ type: 'Error', message: errRes.mesage });
+    logService.saveLog({ type: 'Error', message: errRes.message });
     Response.failRequest(res, 'Failed to get the videos', errRes.error);
     // next();
   }
@@ -27,7 +27,7 @@ async function getVideo(req, res) {
     // next();
   } catch (errRes) {
     console.log({ errRes });
-    logService.saveLog({ type: 'Error', message: errRes.mesage });
+    logService.saveLog({ type: 'Error', message: errRes.message });
     Response.failRequest(res, 'Failed to get the video', errRes.error);
     // next();
   }
