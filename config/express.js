@@ -46,7 +46,10 @@ app.use(function (req, res, next) {
 app.use(
   cors({
     credentials: true,
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://localhost:3000',
+      'http://lyve-cloud-frontend.s3-website-ap-southeast-1.amazonaws.com',
+    ],
   })
 );
 
