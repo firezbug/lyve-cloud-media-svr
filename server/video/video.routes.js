@@ -9,3 +9,4 @@ router.route('/').get(videoCtrl.getVideos);
 router.route('/:key').get(validate(schema.getVideo), videoCtrl.getVideo);
 router.route('/get-video-upload-url').post(videoCtrl.getVideoUploadUrl);
 module.exports = router;
+
