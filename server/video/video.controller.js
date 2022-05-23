@@ -32,7 +32,21 @@ async function getVideo(req, res) {
     // next();
   }
 }
+async function getVideoUploadUrl(req, res) {
+  try {
+    const { key, type } = req.body;
+    const videoUrl = await VideoService.getSignedPutUrl(key, type);
+    Response.success(res, 'Successfully fetched the videos', videoUrl);
+    // next();
+  } catch (errRes) {
+    console.log({ errRes });
+    Response.failRequest(res, 'Failed to get the video', errRes.error);
+    // next();
+  }
+}
+
 module.exports = {
   getVideos,
   getVideo,
+  getVideoUploadUrl,
 };

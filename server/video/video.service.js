@@ -55,7 +55,32 @@ async function getVideo({ key, res, range }) {
     }
   });
 }
+const videoContentTypes = ['video/mp4'];
+const getSignedPutUrl = async (key, type) => {
+  const params = {
+    Bucket: configs.video_bucket,
+    Key: key,
+    Expires: 60 * 5,
+    ContentType: type,
+  };
+  try {
+    const url = await new Promise((resolve, reject) => {
+      if (!videoContentTypes.includes(type)) {
+        throw Error('you can only upload videos');
+      }
+      s3.getSignedUrl('putObject', params, (err, _url) => {
+        if (err) return reject(err);
+        return resolve(_url);
+      });
+    });
+    return url;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   getVideos,
   getVideo,
+  getSignedPutUrl,
 };
