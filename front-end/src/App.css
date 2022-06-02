@@ -1,9 +1,10 @@
 .App {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   background-color: #1c1e2d;
+  align-items: center;
 }
 .main-button {
   padding: 0.5rem 1rem;
@@ -32,20 +33,50 @@
   margin-left: 5rem;
 }
 .video-list {
-  margin: 5rem 3rem;
+  margin-top: 5rem;
+  width: 100%;
+  max-width: 150rem;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 1rem;
 }
 .video-item {
-  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: 0.5s all;
+}
+.video-item > img {
+  width: 100%;
+}
+.video-item:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  z-index: 1000;
+}
+.video-item > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-align: center;
+  justify-content: center;
+  /* display: none; */
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.534);
+}
+.video-item > div > p {
+  width: calc(100% - 2rem);
+  overflow: hidden;
+}
+.video-item:hover > div {
+  background-color: rgba(0, 0, 0, 0.534);
+  display: flex;
 }
 .video-icon {
-  color: var(--primaryColor);
-  font-size: 30px;
-}
-.video-icon:hover {
-  cursor: pointer;
-}
-.video-name {
-  color: white;
-  padding-left: 1rem;
-  margin-top: 1rem;
+  font-size: 3.2rem;
 }

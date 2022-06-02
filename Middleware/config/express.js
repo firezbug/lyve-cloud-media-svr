@@ -43,7 +43,14 @@ app.use(function (req, res, next) {
 // app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      'http://lyve-cloud-frontend.s3-website-ap-southeast-1.amazonaws.com',
+    ],
+  })
+);
 
 // mount all routes on /api path
 app.use('/api', routes);

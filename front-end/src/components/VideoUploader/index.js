@@ -5,11 +5,13 @@ import './styles.scss';
 import { BsUpload } from 'react-icons/bs';
 import S3BucketUploader from '../../utils/s3BucketUploader';
 import { MdDeleteOutline } from 'react-icons/md';
+import { Progress } from 'reactstrap';
 
 export default function VideoUploader(props) {
-  let { uploadVideoTrigger, toggle } = props;
+  let { uploadVideoTrigger, toggle, toggleButtonLoading } = props;
   const [newVideo, setNewVideo] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [completedPrecentage, setPrecentage] = useState(0);
   useEffect(() => {
     uploadVideoTrigger.current = uploadVideo;
   }, [newVideo]);
@@ -21,13 +23,16 @@ export default function VideoUploader(props) {
   const uploadVideo = useCallback(async () => {
     if (!loading) {
       setLoading(true);
+      toggleButtonLoading(true);
       const imageKey = await S3BucketUploader({
         videoFile: newVideo,
         keyPrefix: '',
+        callBack: (value) => setPrecentage(value),
       });
       if (imageKey) {
         setLoading(false);
-        toggle();
+        toggleButtonLoading(false);
+        // toggle();
       }
       return imageKey;
     }
@@ -67,7 +72,16 @@ export default function VideoUploader(props) {
           )}
         </div>
       )}
-      {loading && <p>Uploading ...</p>}
+      {loading && <Progress value={completedPrecentage} />}
+      {loading ? (
+        completedPrecentage >= 100 ? (
+          <p>Successfully Uploaded</p>
+        ) : (
+          <p>{completedPrecentage}%</p>
+        )
+      ) : (
+        ''
+      )}
     </div>
   );
 }
