@@ -35,8 +35,12 @@ async function getVideo(req, res) {
 
 async function getVideoUploadUrl(req, res) {
   try {
-    const { key, type } = req.body;
-    const videoUrl = await VideoService.getSignedPutUrl(key, type);
+    const { key, type, numberOfparts } = req.body;
+    const videoUrl = await VideoService.initiateMultiPartUpload(
+      key,
+      type,
+      numberOfparts
+    );
     Response.success(res, 'Successfully fetched the videos', videoUrl);
     // next();
   } catch (errRes) {
@@ -45,9 +49,25 @@ async function getVideoUploadUrl(req, res) {
     // next();
   }
 }
-
+async function completeMultiUpload(req, res) {
+  try {
+    const { UploadId, parts, key } = req.body;
+    const videoUrl = await VideoService.completeMultiUpload({
+      UploadId,
+      parts,
+      key,
+    });
+    Response.success(res, 'Successfully fetched the videos', videoUrl);
+    // next();
+  } catch (errRes) {
+    console.log({ errRes });
+    Response.failRequest(res, 'Failed to get the video', errRes.error);
+    // next();
+  }
+}
 module.exports = {
   getVideos,
   getVideo,
   getVideoUploadUrl,
+  completeMultiUpload,
 };
